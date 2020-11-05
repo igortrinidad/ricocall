@@ -8,7 +8,7 @@ class UserSchema extends Schema {
     this.create('users', (table) => {
       table.increments('key')
       table.uuid('id').index().unique().notNullable()
-      table.string('name', 254).notNullable().unique()
+      table.string('name', 254).notNullable()
       table.string('email', 254).notNullable().unique()
       table.string('password', 60).notNullable()
       table.boolean('isBlocked').default(0)

@@ -1,6 +1,7 @@
 import Api from '@/util/Api'
 import {successNotify, errorNotify} from '@/util/Notifications'
 import MainRouter from '@/router'
+import Vue from 'vue'
 
 export default {
 
@@ -26,6 +27,8 @@ export default {
       const { user } = data
       context.commit('setLoggedUser', {user})
       successNotify(`Welcome ${user.name} !`)
+
+      context.dispatch('setupTwilioDevice')
 
       if(!redirect) return
 
@@ -61,10 +64,11 @@ export default {
   },
 
   logoutUser(context, {showNotification = true} = {}) {
+    Vue.prototype.$socket.emit('leaveRoom', { userId: context.getters.getterLoggedUser.id })
     context.commit('setLogout')
     if(showNotification) successNotify('Successfully logout')
     MainRouter.push('/', () => {})
-  }
-
+    context.dispatch('destroyTwilioDevice')
+  },
 
 }

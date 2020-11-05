@@ -16,8 +16,6 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.on('/').render('index')
-
 
 /**
  * User Auth
@@ -47,3 +45,9 @@ Route.group(() => {
   Route.post('updateApplicationVoiceUrl', 'TwilioController.updateApplicationVoiceUrl').middleware(['auth:user'])
   Route.get('routeIncomingCall', 'TwilioController.routeIncomingCall')
 }).prefix('/api/twilio')
+
+/**
+ * Home
+ */
+Route.on('/').render('index')
+Route.get('*', 'HomeController.home')

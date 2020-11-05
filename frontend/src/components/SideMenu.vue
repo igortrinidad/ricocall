@@ -24,24 +24,10 @@
           <img src="/logo.svg" width="128px" alt="Ricocall Logo" />
         </router-link>
 
-        <ul class="mt-6 mr-6">
-          <li class="flex items-center bg-white shadow-sm rounded-full px-4 py-2 block my-3">
-            <router-link :to="{name: 'Settings'}" class="w-full flex">
-              <feather type="credit-card" class="mb-1"></feather>
-              <h5 :class="[($route.name == 'Settings') ? 'border-b-2 border-green' : '']">Settings</h5>
-            </router-link>
-          </li>
-          <li class="flex items-center bg-white shadow-sm rounded-full px-4 py-2 block my-3">
-            <feather type="user"></feather><span class="ml-3">Home</span>
-          </li>
-          <li class="flex items-center bg-white shadow-sm rounded-full px-4 py-2 block my-3">
-            <feather type="user"></feather><span class="ml-3">Sair</span>
-          </li>
-        </ul>
-
-        <div v-if="$store.getters.getterLoggedUser">
+        <div class="flex max-h-full overflow-y-auto mb-4" v-if="$store.getters.getterLoggedUser">
           <UserList></UserList>
         </div>
+
       </div>
     </div>
   </div>
@@ -54,7 +40,12 @@ export default {
   components: { UserList },
   data() {
     return {
-      sideMenuIsOpen: true
+      sideMenuIsOpen: false
+    }
+  },
+  mounted() {
+    if(window.innerWidth > 798) {
+      this.sideMenuIsOpen = true
     }
   },
   methods: {

@@ -39,6 +39,10 @@ axios.interceptors.response.use(function (response) {
     mainVuex.dispatch('setLoaderShow', false)
   }
 
+  // setTimeout(() => {
+  //   mainVuex.dispatch('resetLoader')
+  // },2500)
+
   return response;
 }, function (error) {
 

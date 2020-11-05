@@ -8,13 +8,15 @@ import Vuex from 'vuex'
  */
 import auth from '@/mainVuex/auth'
 import general from '@/mainVuex/general'
+import caller from '@/mainVuex/caller'
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   modules: {
     auth,
-    general
+    general,
+    caller
   },
   plugins: [createPersistedState({
       key: 'ricocall',

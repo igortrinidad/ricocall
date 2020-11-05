@@ -57,6 +57,8 @@ class TwilioController {
       return response.status(403).json({ message: 'Unauthorized Twilio Application'})
     }
 
+    console.log(`ROUTING CALL: ${From} => ${To}`)
+
     const xml = `<?xml version="1.0" encoding="UTF-8"?><Response><Dial callerId="client:${From}"><Client>${To}</Client></Dial></Response>`;
 
     response.header('Content-Type', 'application/xml')

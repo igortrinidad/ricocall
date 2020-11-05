@@ -32,6 +32,7 @@
     "@adonisjs/validator": "^5.0.6",
     "adonis-model-utilities": "^1.2.3",
     "mysql": "^2.18.1",
+    "socket.io": "^2.3.0",
     "sqlite3": "^5.0.0",
     "twilio": "^3.50.0"
   },

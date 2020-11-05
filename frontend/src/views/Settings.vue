@@ -1,12 +1,12 @@
 <template>
-  <div class="w-full h-3/4 flex  justify-center">
+  <div class="w-full h-3/4 flex  justify-center p-6">
     <div class="w-full max-w-sm justify-center p-4 w-full border border-grey-light shadow-sm mt-6">
       <h2>Application Settings</h2>
       <InputWithIcon
         class="mt-4"
         :icon="'key'"
         v-model="url"
-        :label="'Insert the url'"
+        :label="'Twilio TwiML app router endpoint'"
         :type="'text'"
       ></InputWithIcon>
 
@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     updateTwilioVoiceUrl() {
-      this.$api.post(`/twilio/updateApplicationVoiceUrl`, { url: this.url })
+      this.$api.post(`/twilio/updateApplicationVoiceUrl`, { url: this.url }, { loader: true})
       .then(() => {
         this.$notifications.success('Twilio Voice Url successfully updated!')
       })
