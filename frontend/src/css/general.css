@@ -1,0 +1,80 @@
+
+.or-separator {
+  text-align: center;
+  border-top: 1px solid #ccc;
+}
+
+.or-separator span {
+  padding: 0 10px;
+  background: #fff;
+  position: relative;
+  top: -12px;
+  z-index: 1;
+}
+
+.vertical-divider{
+  width: 2px;
+  height: 100%;
+}
+
+.card-image-cover {
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+.greyscale{
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+}
+
+.greyscale-50{
+  -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(50%);
+}
+.greyscale-50-not-hover:not(:hover){
+  -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(50%);
+}
+
+.greyscale-not-hover:not(:hover) {
+  -webkit-filter: grayscale(80%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(80%);
+  transition: all 0.5s;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+hr{
+  border: none;
+  width: 100%;
+  border-bottom: 1px solid #bab6b5;
+}
+
+.table td,
+.table th {
+  vertical-align: middle !important;
+}
+
+pre, code {
+  background-color: #DBD9D8;
+  color: #32322c;
+  padding: 1rem;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  text-align: left;
+}
+
+.categories-buttons a:hover > h4 {
+  color: #FFF;
+}
+
+.categories-buttons a:hover, .categories-buttons a:active, .categories-buttons a:focus, .categories-buttons .active {
+  color: #FFF;
+  background: #16B96E;
+  background: linear-gradient(135deg, #16B96E 0%, #1ee489 100%);
+}

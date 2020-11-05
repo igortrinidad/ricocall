@@ -1,0 +1,263 @@
+<!-- What it does: Makes background images in 72ppi Outlook render at correct size. -->
+<!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:AllowPNG/>
+            <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+    </xml>
+    <![endif]-->
+
+<!-- Web Font / @font-face : BEGIN -->
+<!-- NOTE: If web fonts are not required, lines 23 - 41 can be safely removed. -->
+
+<!-- Desktop Outlook chokes on web font references and defaults to Times New Roman, so we force a safe fallback font. -->
+<!--[if mso]>
+        <style>
+            * {
+                font-family: sans-serif !important;
+            }
+        </style>
+    <![endif]-->
+
+<!-- All other clients get the webfont reference; some will render the font and others will silently fail to the fallbacks. More on that here: http://stylecampaign.com/blog/2015/02/webfont-support-in-email/ -->
+<!--[if !mso]><!-->
+<!-- insert web font reference, eg: <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'> -->
+<!--<![endif]-->
+
+<!-- Web Font / @font-face : END -->
+
+<!-- CSS Reset : BEGIN -->
+<style>
+  /* What it does: Tells the email client that only light styles are provided but the client can transform them to dark. A duplicate of meta color-scheme meta tag above. */
+  :root {
+    color-scheme: light;
+    supported-color-schemes: light;
+  }
+
+  /* What it does: Remove spaces around the email design added by some email clients. */
+  /* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
+  html,
+  body {
+    margin: 0 auto !important;
+    padding: 0 !important;
+    height: 100% !important;
+    width: 100% !important;
+    line-height: 1rem;
+    color: #32322c;
+  }
+
+
+
+  /* What it does: Stops email clients resizing small text. */
+  * {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    margin: 0 0 1rem;
+  }
+
+  /* What it does: Centers email on Android 4.4 */
+  div[style*="margin: 16px 0"] {
+    margin: 0 !important;
+  }
+
+  /* What it does: forces Samsung Android mail clients to use the entire viewport */
+  #MessageViewBody,
+  #MessageWebViewDiv {
+    width: 100% !important;
+  }
+
+  /* What it does: Stops Outlook from adding extra spacing to tables. */
+  table,
+  td {
+    mso-table-lspace: 0pt !important;
+    mso-table-rspace: 0pt !important;
+  }
+
+  /* What it does: Replaces default bold style. */
+  th {
+    font-weight: normal;
+  }
+
+  /* What it does: Fixes webkit padding issue. */
+  table {
+    border-spacing: 0 !important;
+    border-collapse: collapse !important;
+    table-layout: fixed !important;
+    margin: 0 auto !important;
+  }
+
+  /* What it does: Prevents Windows 10 Mail from underlining links despite inline CSS. Styles for underlined links should be inline. */
+  a {
+    text-decoration: none;
+  }
+
+  /* What it does: Uses a better rendering method when resizing images in IE. */
+  img {
+    -ms-interpolation-mode: bicubic;
+  }
+
+  /* What it does: A work-around for email clients meddling in triggered links. */
+  a[x-apple-data-detectors],
+  /* iOS */
+  .unstyle-auto-detected-links a,
+  .aBn {
+    border-bottom: 0 !important;
+    cursor: default !important;
+    color: inherit !important;
+    text-decoration: none !important;
+    font-size: inherit !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    line-height: inherit !important;
+  }
+
+  /* What it does: Prevents Gmail from changing the text color in conversation threads. */
+  .im {
+    color: inherit !important;
+  }
+
+  /* What it does: Prevents Gmail from displaying a download button on large, non-linked images. */
+  .a6S {
+    display: none !important;
+    opacity: 0.01 !important;
+  }
+
+  /* If the above doesn't work, add a .g-img class to any image in question. */
+  img.g-img+div {
+    display: none !important;
+  }
+
+  /* What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  */
+  /* Create one of these media queries for each additional viewport size you'd like to fix */
+
+  /* iPhone 4, 4S, 5, 5S, 5C, and 5SE */
+  @media only screen and (min-device-width: 320px) and (max-device-width: 374px) {
+    u~div .email-container {
+      min-width: 320px !important;
+    }
+  }
+
+  /* iPhone 6, 6S, 7, 8, and X */
+  @media only screen and (min-device-width: 375px) and (max-device-width: 413px) {
+    u~div .email-container {
+      min-width: 375px !important;
+    }
+  }
+
+  /* iPhone 6+, 7+, and 8+ */
+  @media only screen and (min-device-width: 414px) {
+    u~div .email-container {
+      min-width: 414px !important;
+    }
+  }
+</style>
+<!-- CSS Reset : END -->
+
+<!-- Progressive Enhancements : BEGIN -->
+<style>
+  /* What it does: Hover styles for buttons */
+  .button-td,
+  .button-a {
+    transition: all 100ms ease-in;
+    border-radius: 9999px;
+    display: inline-block;
+  }
+
+  .button-td-primary:hover,
+  .button-a-primary:hover {
+    background: #16b96e !important;
+    border-color: #16b96e !important;
+    border-radius: 9999px;
+  }
+
+  /* Media Queries */
+  @media screen and (max-width: 600px) {
+
+    .email-container {
+      width: 90% !important;
+      margin: auto !important;
+    }
+
+    /* What it does: Forces table cells into full-width rows. */
+    .stack-column,
+    .stack-column-center {
+      display: block !important;
+      width: 95% !important;
+      max-width: 95% !important;
+      direction: ltr !important;
+    }
+
+    /* And center justify these ones. */
+    .stack-column-center {
+      text-align: center !important;
+    }
+
+    /* What it does: Generic utility class for centering. Useful for images, buttons, and nested tables. */
+    .center-on-narrow {
+      text-align: center !important;
+      display: block !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      float: none !important;
+    }
+
+    table.center-on-narrow {
+      display: inline-block !important;
+    }
+
+    /* What it does: Adjust typography on small screens to improve readability */
+    .email-container p {
+      font-size: 15px !important;
+    }
+  }
+
+  .p-2 {
+    padding: 4px;
+  }
+
+  .rounded { border-radius: 12px !important; }
+  .rounded-sm { border-radius: 4px !important; }
+  .text-center { text-align: center !important; }
+  .text-left { text-align: left !important; }
+  .text-right { text-align: right !important; }
+  .font-bold { font-weight: bold; }
+  .bg-green { background-color: #16b96e !important; }
+  .bg-red { background-color: #ff0f4a!important; }
+  .bg-yellow { background-color: #F8D832!important; }
+  .bg-blue { background-color: #6700C4!important; }
+  .text-black { color: #32322c !important; }
+  .text-white { color: #FFF !important; }
+  .m-0{ margin: 0 !important; }
+  .mt-0 { margin-top: 0 !important; }
+  .mt-1 { margin-top: .25rem !important; }
+  .mt-2 { margin-top: .5rem !important; }
+  .mt-3 { margin-top: .75rem !important; }
+  .mt-6 { margin-top: 1.5rem !important; }
+  .mt-12 { margin-top: 3rem !important; }
+  .mb-0 { margin-bottom: 0 !important; }
+  .mb-1 { margin-bottom: .25rem !important; }
+  .mb-2 { margin-bottom: .5rem !important; }
+  .mb-3 { margin-bottom: .75rem !important; }
+  .my-1 { margin-top: .25rem; margin-bottom: .25rem }
+  .my-2 { margin-top: .5rem; margin-bottom: .5rem }
+  .my-3 { margin-top: .75rem; margin-bottom: .75rem }
+  .p-0 { padding: 0 !important; }
+  .pb-0 { padding-bottom: 0 !important; }
+  .pb-1 { padding-bottom: .25rem !important; }
+  .pb-2 { padding-bottom: .5rem !important; }
+  .pb-3 { padding-bottom: .75rem !important; }
+  .text-xxs { font-size: .7rem }
+  .text-xs { font-size: .85rem }
+  .text-sm { font-size: .95rem }
+  .text-lg { font-size: 1.125rem }
+  .text-xl { font-size: 1.5rem }
+  .text-2xl { font-size: 2rem }
+  .text-3xl { font-size: 2.5rem }
+
+  hr{ border: none;
+    width: 100%;
+    border-bottom: 1px solid #bab6b5;
+  }
+</style>
+<!-- Progressive Enhancements : END -->

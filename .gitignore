@@ -1,0 +1,16 @@
+.DS_Store
+
+frontend/*.log
+frontend/.cache
+frontend/src/.temp
+frontend/node_modules
+frontend/dist
+frontend/.env
+frontend/.env
+
+server/database/*.sqlite
+server/node_modules
+server/.env
+
+.env
+.env.*
