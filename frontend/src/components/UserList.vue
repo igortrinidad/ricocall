@@ -1,7 +1,7 @@
 <template>
   <div class="w-full flex flex-wrap">
     <h4 class="w-full mb-4"><span class="border-b-4 border-yellow">Contacts</span></h4>
-    <div class="w-full" v-for="user in sortedUserList()" :key="user.id">
+    <div class="w-full" v-for="user in sortedUserList" :key="user.id">
       <button
         @click="call(user)"
         class="button bg-white shadow-sm flex justify-center w-full rounded-full text-blue mb-3 text-sm">
@@ -29,6 +29,15 @@ export default {
     this.$socket.on('onlineUsers', ({onlineUsers}) => {
       this.onlineUsers = onlineUsers
     })
+  },
+
+  computed: {
+    sortedUserList() {
+      const statusOrderIndex = ['online', 'busy', 'offline']
+      return this.users.slice().sort((a, b) => {
+        return statusOrderIndex.indexOf(this.checkUserStatus(a)) - statusOrderIndex.indexOf(this.checkUserStatus(b))
+      })
+    }
   },
 
   methods: {
@@ -60,12 +69,7 @@ export default {
       return 'text-grey'
     },
 
-    sortedUserList() {
-      const statusOrderIndex = ['online', 'busy', 'offline']
-      return this.users.slice().sort((a, b) => {
-        return statusOrderIndex.indexOf(this.checkUserStatus(a)) - statusOrderIndex.indexOf(this.checkUserStatus(b))
-      })
-    }
+
   }
 }
 </script>

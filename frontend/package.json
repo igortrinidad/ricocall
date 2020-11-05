@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build && cp -a ./dist/. ../server/public && cp ../server/public/index.html ../server/resources/views/index.html",
+    "build": "vue-cli-service build && rm -rf ../server/public && cp -a ./dist ../server/public && cp ../server/public/index.html ../server/resources/views/index.html",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "copy": "cp -a ./dist/. ../server/public && cp ../server/public/index.html ../server/resources/views/index.html"
+    "copy": "rm -rf ../server/public && cp -a ./dist ../server/public && cp ../server/public/index.html ../server/resources/views/index.html"
   },
   "dependencies": {
     "axios": "^0.21.0",
