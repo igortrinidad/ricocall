@@ -33,10 +33,17 @@ Route.group(() => {
 }).prefix('/api/user/auth')
 
 /**
+ * User Auth
+ */
+Route.group(() => {
+  Route.get('get', 'UserController.get')
+}).prefix('/api/users').middleware(['auth:user'])
+
+/**
  * Twilio
  */
 Route.group(() => {
-  Route.get('token', 'TwilioController.token')
+  Route.get('token', 'TwilioController.token').middleware(['auth:user'])
+  Route.post('updateApplicationVoiceUrl', 'TwilioController.updateApplicationVoiceUrl').middleware(['auth:user'])
   Route.get('routeIncomingCall', 'TwilioController.routeIncomingCall')
-  Route.get('updateApplicationVoiceUrl', 'TwilioController.updateApplicationVoiceUrl')
 }).prefix('/api/twilio')

@@ -1,23 +1,19 @@
 <template>
   <div class="w-full p-4">
-    <input 
-      v-model="name"
-      class="block rounded-full bg-white appearance-none outline-none w-full h-full bg-grey-light text-grey-darker text-lg py-3 pr-8 pl-4 shadow-sm"/>
-    
-    <input 
-      v-model="nameTo"
-      class="block rounded-full bg-white appearance-none outline-none w-full h-full bg-grey-light text-grey-darker text-lg py-3 pr-8 pl-4 shadow-sm"/>
-    
     <div class="w-full flex justify-between my-3">
-      <button class="bg-red p-3 text-white" @click="setupDevice()">Setup device</button>
-      <button class="bg-blue p-3 text-white" @click="call()">Ligar</button>
-      <button class="bg-red p-3 text-white" @click="disconecct()">Ligar</button>
+      <button class="bg-blue p-3 text-white" @click="setupDevice()">Setup</button>
+      <button class="bg-red p-3 text-white" @click="disconnect()">Desligar</button>
     </div>
   </div>
 </template>
 
 <script>
 import { Device } from 'twilio-client'
+import { getLogger } from 'loglevel';
+
+const logger = getLogger(Device.packageName);
+// Set log level on subsequent page loads and refreshes
+logger.setLevel('DEBUG');
 export default {
   name: 'Caller',
   data() {
@@ -27,13 +23,15 @@ export default {
     }
   },
   mounted() {
+    this.setupDevice()
   },
   methods: {
     setupDevice() {
-      this.$api.get(`/twilio/token?name=${this.name}`)
+      this.$api.get(`/twilio/token`)
       .then(({ data }) => {
 
         const { token } = data
+        console.log(token)
         Device.setup(token)
 
         Device.ready(function(device) {
@@ -52,11 +50,8 @@ export default {
         })
       })
     },
-    call() {
-      Device.connect( { From: `${this.name}`, To: `${this.nameTo}` });
-    },
     disconnect() {
-      Device.disconnect()
+      Device.disconnectAll()
     }
   }
 }
