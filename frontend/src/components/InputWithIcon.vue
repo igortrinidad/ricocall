@@ -13,7 +13,7 @@
         :required="required"
         :aria-required="required"
         aria-labelledby="#id"
-        :class="{'border-red' : validation.hasError}"
+        :class="{'border-red' : validation.filled && validation.hasError}"
         :aria-invalid="validation.hasError"
         class="block appearance-none outline-none w-full h-full border-2 border-grey-medium focus:border-yellow bg-grey-light text-grey-darker text-lg py-2 pr-4 pl-10"
       />

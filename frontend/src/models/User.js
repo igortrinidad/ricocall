@@ -42,7 +42,6 @@ export default class User extends BaseModel {
         item: 'password',
         label: 'senha',
         validation: (value) => {
-          if(!this.passwordIsUpdated) return false
           if (value.length < 6) return true
         }
       },
