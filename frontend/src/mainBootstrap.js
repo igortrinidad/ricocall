@@ -4,6 +4,7 @@ import Api from '@/util/Api'
 
 import Loader from '@/components/Loader'
 import InputWithIcon from '@/components/InputWithIcon'
+import Caller from '@/components/Caller'
 import Notifications from './util/Notifications'
 
 export default (() => {
@@ -22,6 +23,7 @@ export default (() => {
 
   Vue.component('InputWithIcon', InputWithIcon)
   Vue.component('Loader', Loader)
+  Vue.component('Caller', Caller)
 
   /**
    * Custom directives

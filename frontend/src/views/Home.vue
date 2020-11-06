@@ -1,14 +1,15 @@
 <template>
-  <div class="w-full h-full flex items-center justify-center">
-    <h1>Home</h1>
-    <Caller></Caller>
+  <div class="w-full h-full flex p-6 mt-20 md:mt-0">
+
+
+    <LastCalls></LastCalls>
   </div>
 </template>
 
 <script>
-import Caller from '@/components/Caller'
+import LastCalls from '@/components/LastCalls'
 export default {
   name: 'Home',
-  components: { Caller }
+  components: { LastCalls }
 }
 </script>

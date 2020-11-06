@@ -1,9 +1,9 @@
 <template>
   <div
-    :class="[(sideMenuIsOpen) ? 'h-full menu-open w-full' : '']"
+    :class="[($store.getters.getterSideMenuIsOpen) ? 'h-full menu-open w-full' : '']"
     class="text-blue side-menu-container items-start md:h-full max-w-full md:max-w-1/3 absolute md:static bg-grey-light p-6  shadow-sm z-10 flex flex-wrap">
     <button
-      v-if="sideMenuIsOpen"
+      v-if="$store.getters.getterSideMenuIsOpen"
       @click="close()"
       aria-label="Close side menu"
       class="cursor-pointer focus:outline-none flex text-black"
@@ -12,20 +12,39 @@
     </button>
     <button
       v-else
-      @click="sideMenuIsOpen = true"
+      @click="open()"
       aria-label="open side menu"
       class="cursor-pointer focus:outline-none flex text-black"
     >
       <feather type="menu"></feather>
     </button>
     <div class="side-menu-content h-full w-full flex" >
-      <div v-if="sideMenuIsOpen" class="w-full flex flex-col h-full">
-        <router-link to="/" class="inline-block w-full flex items-center justify-center">
+      <div v-if="$store.getters.getterSideMenuIsOpen" class="w-full flex flex-col h-full">
+        <router-link :to="$store.getters.getterLoggedUser ? '/home' : '/'" class="inline-block w-full flex items-center justify-center">
           <img src="/logo.svg" width="128px" alt="Ricocall Logo" />
         </router-link>
 
-        <div class="flex max-h-full overflow-y-auto mb-4" v-if="$store.getters.getterLoggedUser">
+        <div class="w-full flex-col p-4 w-full flex md:hidden" v-if="$store.getters.getterLoggedUser">
+          <router-link
+            :to="{ name: 'Home' }"
+            :class="[($route.name == 'Home') ? 'text-black' : '']"
+            class="button-sm text-center text-grey hover:text-black my-1" @click="logout()" aria-label="logout">
+            Home
+          </router-link>
+          <router-link
+            :to="{ name: 'Settings' }"
+            :class="[($route.name == 'Settings') ? 'text-black' : '']"
+            class="button-sm text-center text-grey hover:text-black my-1" @click="logout()" aria-label="logout">
+            Settings
+          </router-link>
+          <button class="button-sm text-center text-grey hover:text-black my-1" @click="logout()" aria-label="logout">
+            {{$store.getters.getterLoggedUser.name}} logout
+          </button>
+        </div>
+
+        <div class="w-full flex max-h-full overflow-y-auto my-4" v-if="$store.getters.getterLoggedUser">
           <UserList></UserList>
+          <Caller></Caller>
         </div>
 
       </div>
@@ -38,21 +57,17 @@ import UserList from '@/components/UserList'
 export default {
   name: 'SideMenu',
   components: { UserList },
-  data() {
-    return {
-      sideMenuIsOpen: false
-    }
-  },
   mounted() {
     if(window.innerWidth > 798) {
-      this.sideMenuIsOpen = true
+      this.open()
     }
   },
   methods: {
     close() {
-      if(this.sideMenuIsOpen) {
-        this.sideMenuIsOpen = false
-      }
+      this.$store.commit('setSideMenuIsOpen', false)
+    },
+    open() {
+      this.$store.commit('setSideMenuIsOpen', true)
     }
   }
 }

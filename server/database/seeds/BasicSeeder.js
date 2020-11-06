@@ -19,7 +19,8 @@ class BasicSeeder {
     await User.create({
       name: 'igor trindade',
       email: 'igortrindade.me@gmail.com',
-      password: '123123'
+      password: '123123',
+      isAdmin: true
     })
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex justify-end p-4 w-full h-16" v-if="$store.getters.getterLoggedUser">
+  <div class="w-full flex justify-end p-4 w-full h-16 invisible md:visible" v-if="$store.getters.getterLoggedUser">
     <router-link
       :to="{ name: 'Home' }"
       :class="[($route.name == 'Home') ? 'border-b-4 border-yellow text-black' : '']"

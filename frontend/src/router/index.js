@@ -24,7 +24,7 @@ const routes = [
     path: '/settings',
     name: 'Settings',
     component: Settings,
-    meta: { requireAuth: true }
+    meta: { requireAuth: true, role: 'admin' }
   },
 ]
 
@@ -36,11 +36,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
 
-  setTimeout(() => {
-    window.scrollTo(0,0)
-    let mainContent = document.getElementById('main-content')
-    if(mainContent) mainContent.scrollTop = 0;
-  },200)
+  MainVuex.commit('setSideMenuIsOpen', false)
 
   //check user has role or not
   if(to.meta.requireAuth) {
@@ -48,6 +44,12 @@ router.beforeEach((to, from, next) => {
     if(!MainVuex.getters.getterLoggedUser) {
       warningNotify('Please sign in again!')
       router.push('/', () => {})
+      return
+    }
+
+    if(to.meta.role === 'admin' && !MainVuex.getters.getterLoggedUser.isAdmin) {
+      warningNotify(`You don't have permission to access this resource`)
+      router.push('/home', () => {})
       return
     }
 

@@ -81,6 +81,28 @@ class TwilioController {
   }
 
 
+
+  /**
+   * getLastCalls
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   * @param {View} ctx.view
+   */
+  async getLastCalls ({ request, response, auth }) {
+
+    const user = await auth.getUser()
+
+    const client = Twilio(this.accountSid, this.authToken)
+
+    const calls = await client.calls.list({from: `client:${user.id}`, limit: 20})
+
+    return response.status(200).json({ calls })
+
+  }
+
+
   /**
    * updateApplicationVoiceUrl
    *

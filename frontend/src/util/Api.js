@@ -1,5 +1,6 @@
 import axios from 'axios'
 import mainVuex from '@/mainVuex'
+import { warningNotify } from '@/util/Notifications'
 
 /**
  * Default headers
@@ -60,7 +61,8 @@ axios.interceptors.response.use(function (response) {
 
   if(error.response && error.response.status && error.response.status === (401 || 403)) {
     //Handle unauthenticated users
-
+    warningNotify(`You don't have permission to access this resource`)
+    mainVuex.dispatch('logoutUser')
   }
 
   return Promise.reject(error);

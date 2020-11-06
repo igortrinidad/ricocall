@@ -4,7 +4,7 @@
 
       <SideMenu></SideMenu>
 
-      <div class=" w-full h-full overflow-y-auto  flex flex-wrap bg-white">
+      <div class="w-full h-full overflow-y-auto flex flex-col bg-white">
         <MainHeader></MainHeader>
         <router-view></router-view>
       </div>

@@ -1,10 +1,10 @@
 <template>
   <div class="w-full flex flex-wrap">
-    <h4 class="w-full mb-4"><span class="border-b-4 border-yellow">Contacts</span></h4>
+    <h4 class="w-full mb-4 text-center border-b-4 border-yellow"><span class="">Contacts</span></h4>
     <div class="w-full" v-for="user in sortedUserList" :key="user.id">
       <button
         @click="checkCall(user)"
-        class="button bg-white shadow-sm flex justify-center w-full rounded-full text-blue mb-3 text-sm">
+        class="button bg-white shadow-sm flex justify-center w-full rounded-full text-blue mb-4 text-sm">
           <span class="w-3/4 max-w-3/4 ellipsis text-left">{{user.name}}</span>
           <span class="text-xs ml-2" :class="[getUserStatusClass(checkUserStatus(user))]">{{checkUserStatus(user)}}</span>
       </button>
@@ -28,6 +28,7 @@ export default {
     this.joinSocketRoom()
     this.$socket.on('onlineUsers', ({onlineUsers}) => {
       this.onlineUsers = onlineUsers
+      this.getUsers()
     })
   },
 

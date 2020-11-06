@@ -1,7 +1,8 @@
 <template>
-  <div class="w-full h-3/4 flex  justify-center p-6">
-    <div class="w-full max-w-sm justify-center p-4 w-full border border-grey-light shadow-sm mt-6">
-      <h2>Application Settings</h2>
+  <div class="w-full flex flex-wrap p-6">
+    <h3><span class="border-b-4 border-yellow">Settings</span></h3>
+
+    <div class="w-full">
       <InputWithIcon
         class="mt-4"
         :icon="'key'"

@@ -44,6 +44,7 @@ Route.group(() => {
   Route.get('token', 'TwilioController.token').middleware(['auth:user'])
   Route.post('updateApplicationVoiceUrl', 'TwilioController.updateApplicationVoiceUrl').middleware(['auth:user'])
   Route.get('routeIncomingCall', 'TwilioController.routeIncomingCall')
+  Route.get('getLastCalls', 'TwilioController.getLastCalls')
 }).prefix('/api/twilio')
 
 /**

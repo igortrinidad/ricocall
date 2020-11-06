@@ -6,5 +6,8 @@ export default {
   resetLoader(state) {
     state.loaderShow = false
     state.loaderInstances = 0
+  },
+  setSideMenuIsOpen(state, open) {
+    state.sideMenuIsOpen = open
   }
 }

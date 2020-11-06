@@ -53,7 +53,7 @@ io.on('connection', function (socket) {
   })
 
   socket.on('disconnect', () => {
-    console.log(`CONNECTION DISCONNECTED SOCKET ${socket.userId}`)
+    // console.log(`SOCKET CONNECTION DISCONNECTED ${socket.userId}`)
     const finded = find(onlineUsers, { userId: socket.userId })
     if(finded) {
       finded.sockets.splice(finded.sockets.indexOf(socket.id), 1)
@@ -65,7 +65,7 @@ io.on('connection', function (socket) {
   })
 
   socket.on('connect_error', () => {
-    console.log(`CONNECTION ERROR SOCKET ${socket.userId}`)
+    // console.log(`SOCKET CONNECTION ERROR SOCKET ${socket.userId}`)
     const finded = find(onlineUsers, { userId: socket.userId })
     if(finded) {
       finded.sockets.splice(finded.sockets.indexOf(socket.id), 1)
