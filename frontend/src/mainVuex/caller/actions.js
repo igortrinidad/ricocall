@@ -24,6 +24,15 @@ export default {
 
       Device.on('incoming', (connection) => {
 
+        [ ...connection.customParameters.entries() ].forEach((parameter) => {
+          if(parameter[0] == 'fromUserName') {
+            context.commit('setActiveConnectionFromUserName', parameter[1])
+          }
+          if(parameter[0] == 'toUserName') {
+            context.commit('setActiveConnectionToUserName', parameter[1])
+          }
+        })
+
         context.commit('setActiveConnection', connection)
         context.commit('setActiveConnectionStatus', connection.status())
         context.commit('setActiveConnectionType', 'incoming')
@@ -54,6 +63,7 @@ export default {
     context.commit('setActiveConnection', connection)
     context.commit('setActiveConnectionStatus', connection.status())
     context.commit('setActiveConnectionType', 'outgoing')
+    context.commit('setActiveConnectionToUserName', user.name)
     Vue.prototype.$socket.emit('updateUserStatus', {userId: context.getters.getterLoggedUser.id, status: 'busy'})
 
     context.dispatch('warmupConnection', connection)

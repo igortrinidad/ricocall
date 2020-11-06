@@ -13,7 +13,7 @@ module.exports = {
       'grey': '#D1D4DA',
       'black': '#495151 !important',
       'white': '#FFFFFF !important',
-      'smoke': 'rgba(78, 78, 78, 0.7)',
+      'smoke': 'rgba(78, 78, 78, 0.9)',
       'smoke-light': 'rgba(78, 78, 78, 0.3)',
       'smoke-white': 'rgba(255, 255, 255, 0.9)',
     },

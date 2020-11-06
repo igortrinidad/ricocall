@@ -7,5 +7,11 @@ export default {
   },
   setActiveConnectionType(state, type) {
     state.activeConnectionType = type
-  }
+  },
+  setActiveConnectionFromUserName(state, userName) {
+    state.activeConnectionFromUserName = userName
+  },
+  setActiveConnectionToUserName(state, userName) {
+    state.activeConnectionToUserName = userName
+  },
 }

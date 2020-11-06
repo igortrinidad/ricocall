@@ -3,6 +3,7 @@
 const ClientCapability = require('twilio').jwt.ClientCapability;
 const Twilio = require('twilio')
 const Env = use('Env')
+const User = use('App/Models/User')
 
 class TwilioController {
 
@@ -57,9 +58,21 @@ class TwilioController {
       return response.status(403).json({ message: 'Unauthorized Twilio Application'})
     }
 
+    const fromUser = await User.query().where('id', From).first()
+    const toUser = await User.query().where('id', To).first()
+
     console.log(`ROUTING CALL: ${From} => ${To}`)
 
-    const xml = `<?xml version="1.0" encoding="UTF-8"?><Response><Dial callerId="client:${From}"><Client>${To}</Client></Dial></Response>`;
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+      <Response>
+        <Dial callerId="client:${From}">
+          <Client>
+            <Identity>${To}</Identity>
+            <Parameter name="fromUserName" value="${fromUser.name}" />
+            <Parameter name="toUserName" value="${toUser.name}" />
+          </Client>
+        </Dial>
+      </Response>`;
 
     response.header('Content-Type', 'application/xml')
 
