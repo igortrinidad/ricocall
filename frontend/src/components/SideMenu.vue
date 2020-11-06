@@ -24,17 +24,33 @@
           <img src="/logo.svg" width="128px" alt="Ricocall Logo" />
         </router-link>
 
+        <div class="w-full flex-col p-4 w-full flex" v-if="!$store.getters.getterLoggedUser">
+          <router-link
+            :to="{ name: 'About' }"
+            :class="[($route.name == 'About') ? 'text-black' : '']"
+            class="button-sm text-center text-grey hover:text-black my-1" aria-label="about">
+            About
+          </router-link>
+          <router-link
+            :to="{ name: 'Login' }"
+            :class="[($route.name == 'Login') ? 'text-black' : '']"
+            class="button-sm text-center text-grey hover:text-black my-1" aria-label="Login">
+            Login
+          </router-link>
+        </div>
+
         <div class="w-full flex-col p-4 w-full flex md:hidden" v-if="$store.getters.getterLoggedUser">
           <router-link
             :to="{ name: 'Home' }"
             :class="[($route.name == 'Home') ? 'text-black' : '']"
-            class="button-sm text-center text-grey hover:text-black my-1" @click="logout()" aria-label="logout">
+            class="button-sm text-center text-grey hover:text-black my-1" aria-label="logout">
             Home
           </router-link>
+
           <router-link
             :to="{ name: 'Settings' }"
             :class="[($route.name == 'Settings') ? 'text-black' : '']"
-            class="button-sm text-center text-grey hover:text-black my-1" @click="logout()" aria-label="logout">
+            class="button-sm text-center text-grey hover:text-black my-1" aria-label="logout">
             Settings
           </router-link>
           <button class="button-sm text-center text-grey hover:text-black my-1" @click="logout()" aria-label="logout">

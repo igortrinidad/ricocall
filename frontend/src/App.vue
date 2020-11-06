@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="w-full block m-auto h-screen overflow-y-auto bg-blue p-3 md:p-10">
+  <div id="app" class="w-full block m-auto h-screen overflow-y-auto bg-blue p-3 md:p-10 md:pb-6">
     <div class="w-full shadow-md flex h-full relative">
 
       <SideMenu></SideMenu>
@@ -11,6 +11,14 @@
     </div>
 
     <Loader></Loader>
+
+    <!-- By -->
+    <div class="w-full mt-4 flex justify-center items-center">
+      <a class="f-white" href="https://igortrindade.dev" target="_blank">
+        <img alt="Developed by Igor Trindade" src="https://igortrindade.dev/mkt/icon.png" width="36px" />
+      </a>
+    </div>
+
   </div>
 </template>
 <script>
