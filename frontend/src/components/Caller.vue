@@ -1,18 +1,37 @@
 <template>
-  <div class="w-full p-4">
-    <div class="w-full flex justify-between my-3">
-      <button class="bg-red p-3 text-white" @click="disconnect()">Desligar</button>
+  <!-- <div class="w-full p-4" v-if="$store.getters.getterActiveConnection"> -->
+    <!-- <div class="w-full" v-if="$store.getters.getterActiveConnectionType == 'incoming'"> -->
+  <div class="w-full h-full absolute inset-0 z-50 my-auto bg-smoke flex items-center justify-center loader p-8" v-if="$store.getters.getterActiveConnection">
+
+    <div class="w-full h-3/4 max-w-md flex flex-col items-center justify-around" v-if="$store.getters.getterActiveConnectionType == 'incoming'">
+      <img class="fill-current text-white" src="/incoming.svg" width="198px"/>
+      <div class="w-full max-w-sm flex justify-around">
+        <button class="bg-red p-6 text-white rounded-full" @click="rejectIncomingCall()">
+          <img class="fill-current text-white" src="/call.svg" width="44px"/>
+        </button>
+        <button class="bg-green p-6 text-white rounded-full" @click="acceptCall()">
+          <img class="fill-current text-white" src="/call.svg" width="44px"/>
+        </button>
+      </div>
     </div>
+
+    <div class="w-full h-3/4 max-w-md flex flex-col items-center justify-around" v-else>
+      <img class="fill-current text-white" src="/outgoing.svg" width="198px"/>
+      <div class="w-full max-w-sm flex justify-around">
+        <button class="bg-red p-6 text-white rounded-full" @click="rejectIncomingCall()">
+          <img class="fill-current text-white" src="/call.svg" width="44px"/>
+        </button>
+        <button class="bg-green p-6 text-white rounded-full" @click="acceptCall()">
+          <img class="fill-current text-white" src="/call.svg" width="44px"/>
+        </button>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
-import { Device } from 'twilio-client'
-import { getLogger } from 'loglevel';
-
-const logger = getLogger(Device.packageName);
-// Set log level on subsequent page loads and refreshes
-logger.setLevel('DEBUG');
+import { mapActions } from 'vuex'
 export default {
   name: 'Caller',
   data() {
@@ -22,9 +41,7 @@ export default {
   mounted() {
   },
   methods: {
-    disconnect() {
-      Device.disconnectAll()
-    }
+    ...mapActions(['disconnectConnection', 'rejectIncomingCall', 'acceptCall'])
   }
 }
 </script>

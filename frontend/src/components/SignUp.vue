@@ -25,6 +25,7 @@
       :type="'password'"
       :required="true"
       :validation="user.validation('password')"
+      @keydown.enter.native="checkEmail()"
     ></InputWithIcon>
 
     <p class="w-full text-right">

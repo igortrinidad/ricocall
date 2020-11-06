@@ -3,7 +3,7 @@
     <h4 class="w-full mb-4"><span class="border-b-4 border-yellow">Contacts</span></h4>
     <div class="w-full" v-for="user in sortedUserList" :key="user.id">
       <button
-        @click="call(user)"
+        @click="checkCall(user)"
         class="button bg-white shadow-sm flex justify-center w-full rounded-full text-blue mb-3 text-sm">
           <span class="w-3/4 max-w-3/4 ellipsis text-left">{{user.name}}</span>
           <span class="text-xs ml-2" :class="[getUserStatusClass(checkUserStatus(user))]">{{checkUserStatus(user)}}</span>
@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import { Device } from 'twilio-client'
 import { getArrayItem } from '@/util/Functions'
+import { mapActions } from 'vuex'
 export default {
   name: 'UserList',
   data() {
@@ -41,15 +41,13 @@ export default {
   },
 
   methods: {
+    ...mapActions(['makeTwilioCall']),
+
     getUsers() {
       this.$api.get('/users/get')
       .then(({ data }) => {
         this.users = data.users
       })
-    },
-    call(user) {
-      if(this.checkUserStatus(user) != 'online') return
-      Device.connect( { From: this.$store.getters.getterLoggedUser.id, To: user.id });
     },
 
     joinSocketRoom() {
@@ -63,17 +61,27 @@ export default {
       }
       return 'offline'
     },
+
     getUserStatusClass(status) {
       if(status == 'busy') return 'text-blue'
       if(status == 'online') return 'text-green'
       return 'text-grey'
     },
 
+    checkCall(user) {
+      if(this.$store.getters.getterActiveConnection) return
+      if(this.checkUserStatus(user) === 'busy') {
+        this.$notifications.warning(`${user.name} is busy, call again later!`)
+        return
+      }
+      if(this.checkUserStatus(user) === 'offline') {
+        this.$notifications.warning(`${user.name} is offline, call again later!`)
+        return
+      }
+
+      this.makeTwilioCall({ user })
+    }
 
   }
 }
 </script>
-
-<style>
-
-</style>

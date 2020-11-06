@@ -17,6 +17,7 @@
       :type="'password'"
       :required="true"
       :validation="user.validation('password')"
+      @keydown.enter.native="login()"
     ></InputWithIcon>
 
     <p class="w-full text-right">
