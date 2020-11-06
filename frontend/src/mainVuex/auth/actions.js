@@ -64,11 +64,13 @@ export default {
   },
 
   logoutUser(context, {showNotification = true} = {}) {
+    MainRouter.push({ name: 'Login' }, () => {})
     Vue.prototype.$socket.emit('leaveRoom', { userId: context.getters.getterLoggedUser.id })
-    context.commit('setLogout')
+    setTimeout(() => {
+      context.commit('setLogout')
+      context.dispatch('destroyTwilioDevice')
+    }, 200)
     if(showNotification) successNotify('Successfully logout')
-    MainRouter.push('/', () => {})
-    context.dispatch('destroyTwilioDevice')
   },
 
 }

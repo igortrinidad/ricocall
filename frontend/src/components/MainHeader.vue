@@ -9,16 +9,16 @@
     <router-link
       :to="{ name: 'About' }"
       :class="[($route.name == 'About') ? 'border-b-4 border-yellow text-black' : '']"
-      class="button-sm flex items-center text-grey hover:text-black" @click="logout()" aria-label="logout">
+      class="button-sm flex items-center text-grey hover:text-black" aria-label="logout">
       About
     </router-link>
     <router-link
       :to="{ name: 'Settings' }"
       :class="[($route.name == 'Settings') ? 'border-b-4 border-yellow text-black' : '']"
-      class="button-sm flex items-center text-grey hover:text-black" @click="logout()" aria-label="logout">
+      class="button-sm flex items-center text-grey hover:text-black" aria-label="logout">
       Settings
     </router-link>
-    <button class="button-sm flex items-center text-grey hover:text-black" @click="logout()" aria-label="logout">
+    <button class="button-sm flex items-center text-grey hover:text-black" @click="logoutUser()" aria-label="logout">
       {{$store.getters.getterLoggedUser.name}} logout
     </button>
   </div>
@@ -31,10 +31,6 @@ export default {
   name: 'Header',
   methods: {
     ...mapActions(['logoutUser']),
-
-    logout() {
-      this.logoutUser()
-    }
   }
 }
 </script>

@@ -43,7 +43,9 @@ export default {
       })
 
       Device.on('offline', () => {
-        context.dispatch('setupTwilioDevice')
+        if(context.getters.getterLoggedUser) {
+          context.dispatch('setupTwilioDevice')
+        }
       })
 
       Device.on('disconnect', () => {

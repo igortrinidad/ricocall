@@ -53,7 +53,7 @@
             class="button-sm text-center text-grey hover:text-black my-1" aria-label="logout">
             Settings
           </router-link>
-          <button class="button-sm text-center text-grey hover:text-black my-1" @click="logout()" aria-label="logout">
+          <button class="button-sm text-center text-grey hover:text-black my-1" @click="logoutUser()" aria-label="logout">
             {{$store.getters.getterLoggedUser.name}} logout
           </button>
         </div>
@@ -70,6 +70,7 @@
 
 <script>
 import UserList from '@/components/UserList'
+import { mapActions } from 'vuex'
 export default {
   name: 'SideMenu',
   components: { UserList },
@@ -79,6 +80,8 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['logoutUser']),
+
     close() {
       this.$store.commit('setSideMenuIsOpen', false)
     },
