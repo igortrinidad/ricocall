@@ -1,5 +1,7 @@
 .DS_Store
 
+.env
+
 frontend/*.log
 frontend/.cache
 frontend/src/.temp
@@ -11,6 +13,3 @@ frontend/.env
 server/database/*.sqlite
 server/node_modules
 server/.env
-
-.env
-.env.*

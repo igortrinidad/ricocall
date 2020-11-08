@@ -8,9 +8,12 @@ A concept web application created by Igor Trindade to make voice call using your
 ```bash
 git clone
 cd ricocall/server
+cp .env.example .env
 npm install
 npm run dev
 ```
+
+Before running the server you may need to setup .env files with Twilio and Mailgun credentials (in case of sending the recover password)
 
 ### Application (SPA)
 ```bash
